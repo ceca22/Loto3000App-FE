@@ -1,0 +1,61 @@
+
+body{
+    box-sizing: border-box;
+}
+
+.dashboardNavBar
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        width: 100%;
+        height: 10%;
+        padding: 15px 0;
+
+        color: rgba(128, 128, 128, 0.377);
+        /* margin-bottom: 10px; */
+    }
+
+    .routerOutlet {
+        width: 100%;
+        height: 90%;
+
+        border-radius: 30px;
+    }
+
+    svg:focus, svg:active, svg:hover, svg:visited{
+        outline: none;
+        color: rgba(65, 147, 88, 0.801);
+
+    }
+
+    
+    
+@media (max-width: 600px) {
+    
+    .dashboardNavBar
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        width: 100%;
+        height: 10%;
+        padding: 15px 0;
+
+        color: rgba(128, 128, 128, 0.377);
+        /* margin-bottom: 10px; */
+    }
+
+    svg:hover {
+        color: rgba(65, 147, 88, 0.801);
+
+    }
+
+    .routerOutlet {
+        width: 100%;
+        height: 90%;
+    }
+
+}

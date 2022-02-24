@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+#loto-ticket{
+    display: flex;
+    flex-direction: row;
+}
+
+svg {
+    margin-top: 12px;
+}
+
+
+#ticket-digits{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+
+}

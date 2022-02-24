@@ -1,0 +1,66 @@
+
+<div class="account" >
+    <form class="greeting">
+        <div class="profilePicture"> </div>
+        <p>Hi, {{currentUserInfo.firstName}}</p>
+        <button (click)="onSubmitLogout()" type="submit" class="btn btn-danger">Logout</button>
+    </form>
+
+    <form class="info"
+    (ngSubmit)="Update()">    
+
+        <input type="text" 
+        type="hidden"
+        value="{{currentUserInfo.id}}" 
+        autocomplete="off"
+        name="id"
+        />
+        <input type="text" 
+        type="hidden"
+        value="{{currentUserInfo.role}}" 
+        autocomplete="off"
+        name="role"
+        />
+
+        <label for="">First Name</label>
+        <input type="text" 
+        value="{{currentUserInfo.firstName}}" 
+        autocomplete="off" 
+        name="firstName"
+        />
+
+        <label for="">Last Name</label>
+        <input type="text" 
+        value="{{currentUserInfo.lastName}}"
+        autocomplete="off"
+        name="lastName"
+
+        />
+
+        <label for="">Username</label>
+        <input type="text" 
+        value="{{currentUserInfo.username}}" 
+        autocomplete="off"
+        name="username"
+
+        />
+
+        <label for="">Password</label>
+        <input type="password" 
+        value="{{currentUserInfo.password}}" 
+        autocomplete="off"
+        name="password"
+
+        />
+
+        <label for="">Confirm Password</label>
+        <input type="password" 
+        value="{{currentUserInfo.confirmedPassword}}" 
+        autocomplete="off"
+        name="confirmedPassword"
+
+        />
+        <button type="submit" class="btn btn-success">Update</button>
+    </form>
+</div>
+

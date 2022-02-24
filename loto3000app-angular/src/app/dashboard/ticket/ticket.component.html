@@ -1,0 +1,71 @@
+
+<div class="submitTicket" *ngIf="currentUserInfo.role === '2'">
+    
+    <!-- <p class="optionsParagraphs" routerLink="manually">Write a ticket</p>
+    
+    <p class="optionsParagraphs" routerLink="automatic">Automatic</p> -->
+    <form class="ticket"
+    #ticket="ngForm"
+    (submit)="onSubmitTicket(ticket)">
+        <div class="ticketForm">
+            <p class="headingParagraph">Loto3000 Ticket</p>
+            <input type="text" type="hidden" name="userId" ngModel/>
+            <input type="text" type="hidden" name="sessionId" ngModel/>
+    
+            <input type="text" class="digit" 
+            name="one" ngModel
+            autocomplete="off"/>
+            <input type="text" class="digit"  
+            name="two" ngModel
+            autocomplete="off"/>
+            <input type="text" class="digit" 
+            name="three" ngModel
+            autocomplete="off"/>
+            <input type="text" class="digit" 
+            name="four" ngModel
+            autocomplete="off"/>
+            <input type="text" class="digit" 
+            name="five" ngModel
+            autocomplete="off"/>
+            <input type="text" class="digit" 
+            name="six" ngModel
+            autocomplete="off"/>
+            <input type="text" class="digit" 
+            name="seven" ngModel
+            autocomplete="off"/>
+        
+        </div>
+        <div class="automatic">
+            <input type="checkbox">
+            <p>Auto-fill</p>
+        </div>
+        
+        <button type="submit" class="btn btn-light submitTicketButton" >
+            Submit Ticket
+        </button>
+    </form>
+    
+    
+
+</div>
+
+
+<div class="infoPanel" *ngIf="currentUserInfo.role === '1'">
+    <div class="info">
+        <span class="infoAboutTickets">
+            <p class="infoAboutTicketsParagraph">Tickets in Play: <br/>
+                <span class="countSpan">{{ticketCount}}</span></p>
+        </span>
+        <span class="infoAboutTickets">
+            <p class="infoAboutTicketsParagraph">Users Enrolled: <br/>
+                <span class="countSpan">{{userCount}}</span> </p> 
+        </span>
+        
+    </div>
+    <div class="cards" >
+        <app-card-template [ticket]="element" *ngFor="let element of ticketsForCurrentSession">
+        </app-card-template>
+    </div>
+    
+    
+</div>

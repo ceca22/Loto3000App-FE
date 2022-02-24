@@ -1,0 +1,259 @@
+*{
+    box-sizing: border-box;
+}
+
+/* structure */
+
+.info-panel {
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0px;
+    overflow-y: scroll;
+}
+
+
+.sessionUser{
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0 0px 10px;
+}
+
+.ticketsUser, .prizesUser {
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 10px 0 10px 10px;
+}
+
+.sessionDesign {
+    width: 90%;
+    height: 100px;
+    border-radius: 30px;
+    padding: 10px 20px 0px 20px;
+    background-color: white;
+    box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.1);
+    border:none;
+    margin-top:20px;
+    margin-bottom: 25px;
+}
+
+.buttonDesign {
+    width: 90%;
+    height: 100px;
+    border-radius: 30px;
+    padding: 10px 20px 0px 20px;
+    background-color: white;
+    box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.1);
+    border:none;
+}
+
+.panel {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-10px);
+    transition: opacity 0ms ease-in-out;
+    margin-top:10px;
+}
+
+.buttonDesign:focus{
+    outline: none;
+}
+
+.show {
+    width: 100%;
+    height: 250px;
+}
+
+.hide {
+    width: 100%;
+    height: 100px;
+}
+
+
+
+.font {
+    font-size: 15px;
+}
+
+.font13 {
+    font-size: 13px;
+}
+
+.font-style {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.red {
+    background-color: red;
+
+}
+
+.green {
+    background-color: green;
+
+}
+
+.status {
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    margin: 0px;
+}
+
+#buttonMyTickets:hover, #buttonPrizes:hover{
+    background-color: rgba(241, 240, 240, 0.473);
+}
+
+#buttonMyTickets:active, #buttonPrizes:active{
+    background-color: rgb(255, 255, 255);
+}
+
+#buttonMyTickets p, #buttonPrizes p{
+    text-align: start;
+}
+.panel .prizeParagraphs {
+    color:black;
+}
+
+.ticketsUser.show > #buttonMyTickets + .panel{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events:auto;
+}
+
+.prizesUser.show > #buttonPrizes + .panel{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events:auto;
+}
+
+
+
+/* .panel::-webkit-scrollbar {
+    width: 12px;
+}
+
+.panel::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px transparent; 
+    border-radius: 10px;
+}
+
+.panel::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 2px transparent; 
+} */
+
+
+
+.info-panel::-webkit-scrollbar {
+    width: 12px;
+}
+
+.info-panel::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px transparent; 
+    border-radius: 10px;
+}
+
+.info-panel::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 2px transparent; 
+}
+
+
+
+
+
+
+@media (max-width: 600px) {
+    
+    
+}
+
+
+
+
+
+
+/* ADMIN */
+
+.adminPanel{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 10px;
+
+}
+
+.infoTemplate{
+    width: 95%;
+    height: 20%;
+
+    background-color: rgb(255 145 98 / 63%);
+    border-radius: 30px;
+    padding-left: 20px;
+    margin: 5px 0px;
+    border:none;
+    box-shadow: 5px 5px 12px #d9d4d4;
+
+    color:white;
+    font-weight: bolder;
+
+}
+
+.infoTemplate:hover{
+    background-color: rgba(255, 145, 98, 0.836);
+
+}
+
+.infoTemplate:focus{
+    outline: none;
+}
+
+
+
+.draw:hover{
+    background-color: rgb(255, 145, 98);
+
+
+}
+
+
+
+.session:hover {
+    background-color: rgb(255, 145, 98);
+
+}
+
+
