@@ -1,0 +1,35 @@
+
+.winner{
+    color: green;
+}
+
+.winning {
+    width: 100%;
+    height: auto;
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(190, 190, 190, 0.329);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.winning-layer-two{
+    width: 100%;
+    height: auto;
+    padding: 10px 10px;
+    
+}
+
+.winning-ticket{
+    width: 100%;
+    height: auto;
+    padding: 10px 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(190, 190, 190, 0.329);
+    display:flex;
+    flex-direction: column;
+}
+
+.winning-ticket .sessionId{
+    font-size: 10px;
+}

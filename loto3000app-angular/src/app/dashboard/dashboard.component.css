@@ -20,9 +20,11 @@ body{
     .routerOutlet {
         width: 100%;
         height: 90%;
-
         border-radius: 30px;
+        /* padding: 15px 0px 0px 0px; */
+        
     }
+    
 
     svg:focus, svg:active, svg:hover, svg:visited{
         outline: none;

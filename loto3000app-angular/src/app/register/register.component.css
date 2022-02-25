@@ -1,3 +1,11 @@
+.registerDiv {
+    height: 100%;
+
+    display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+}
 
 input {
     border-radius: 10px;
@@ -16,12 +24,12 @@ input:focus{
 
 @media (max-width: 600px) {
 
-    .registerDiv {
+    /* .registerDiv {
         height: 100%;
     
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-    }
+    } */
 }

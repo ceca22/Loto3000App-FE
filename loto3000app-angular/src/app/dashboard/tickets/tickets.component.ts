@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { DrawService } from 'src/app/services/draw.service';
 import { PrizeService } from 'src/app/services/prize.service';
 import { Prize } from 'src/app/models/prize';
+import { WinnersService } from 'src/app/services/winners.service';
 
 @Component({
   selector: 'app-tickets',
@@ -25,6 +26,7 @@ export class TicketsComponent implements OnInit {
 
   statusSession:string;
   sessionOpen:boolean;
+  sessionClosed:boolean;
   statusSessionSubscription:Subscription;
 
   currentUserInfo:User;
@@ -32,40 +34,37 @@ export class TicketsComponent implements OnInit {
   drawIsMade:boolean;
   drawSubscription:Subscription;
 
+  announceWinners:boolean = false;
+  announceWinnersSubscription:Subscription;
+
   prizesSubscription:Subscription;
   prizesAvailable:Prize[]=[];
 
   activeClassPrizes:boolean;
   activeClassTickets:boolean;
-
-
-
-
-
+  activeClassRules:boolean;
   
   constructor(private ticketService:TicketService, 
     private sessionService:SessionService, 
     private drawService:DrawService,
     private sharedData:SharedDataService,
-    private prizeService:PrizeService) { }
+    private prizeService:PrizeService,
+    private winnerService:WinnersService) { }
 
   ngOnInit(): void {
     this.sharedData.initSubscriptionsCurrentUser();
     this.sharedData.currentUserObservable.subscribe(message => this.currentUserInfo = message);
-
     this.sessionService.getCurrentSession();
     this.drawService.drawIsMade();
     this.sessionService.sessionStatus();
     this.ticketService.getAllTickets();
     this.ticketService.getTickets();
     this.prizeService.getPrizes();
-
     this.initSubscriptions();
     this.initSubscriptionsSession();
     this.initSubscriptionsDraw();
     this.initSubscriptionPrize();
-    
-    
+    this.initSubscriptionAnnounceWinners();
   }
 
   initSubscriptions(){
@@ -82,7 +81,7 @@ export class TicketsComponent implements OnInit {
     this.sessionSubscription = this.sessionService.sessionSubject$
     .subscribe(
       (payload:Session) => {
-        console.log("session" + payload);
+        console.log("session: " + payload);
         this.currentSession = payload;
       }
     )
@@ -114,6 +113,15 @@ export class TicketsComponent implements OnInit {
     this.prizesSubscription = this.prizeService.prizesAvailableSubject$
     .subscribe((payload:Prize[]) => {
       this.prizesAvailable = payload;
+    }
+    )
+  }
+
+  initSubscriptionAnnounceWinners(){
+    this.announceWinnersSubscription = this.winnerService.findWinnersStatusSubject$
+    .subscribe((payload:boolean) => {
+      console.log("announce winners:" + payload);
+      this.announceWinners = payload;
       
     }
     )
@@ -125,21 +133,29 @@ export class TicketsComponent implements OnInit {
   }
 
   endSession(){
+    this.sessionClosed = true;
+    this.sessionOpen = false;
     this.sessionService.end();
+    
   }
 
   makeDraw(){
     this.drawService.draw();
   }
 
-  
+  announceWinnersMethod(){
+    this.winnerService.findWinners()
+  }
+
   onClickTickets(){
     this.activeClassTickets = !this.activeClassTickets;
-
   }
 
   onClickPrizes(){
     this.activeClassPrizes = !this.activeClassPrizes;
+  }
 
+  onClickRules(){
+    this.activeClassRules = !this.activeClassRules;
   }
 }

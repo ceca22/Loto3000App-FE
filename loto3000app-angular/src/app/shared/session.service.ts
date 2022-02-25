@@ -49,7 +49,7 @@ export class SessionService {
     this.http
     .get<boolean>(`${this.baseUrl}/session/status`)
     .subscribe((response) => {
-      console.log("status: " + response);
+      console.log("session status: " + response);
       this.status$.next(response);
       
     },(error) => {
@@ -64,8 +64,7 @@ export class SessionService {
     .subscribe((response) => {
       console.log("start session: " + response);
       this.router.navigate(['dashboard/tickets']);
-      this.refresh();
-
+      // this.refresh();
       
     },(error) => {
       console.log(error);
@@ -80,8 +79,7 @@ export class SessionService {
     .subscribe((response) => {
       console.log("end session: " + response);
       this.router.navigate(['dashboard/tickets']);
-      this.refresh();
-      
+      //this.refresh();
       
     },(error) => {
       console.log(error);

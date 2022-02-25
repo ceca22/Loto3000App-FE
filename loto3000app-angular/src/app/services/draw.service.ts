@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 export class DrawService {
 
   drawStatus$ = new Subject<boolean>();
+  lastDraw$ = new Subject<string>();
+
   constructor(private http:HttpClient,
     private router:Router) { }
 
@@ -17,15 +19,14 @@ export class DrawService {
 
   drawIsMade(){
     this.http
-    .get<boolean>(`${this.baseUrl}/draw/drawStatus`)
+    .get<boolean>(`${this.baseUrl}/draw/drawStatus`, )
     .subscribe((response) => {
       console.log("draw is made: " + response);
       this.drawStatus$.next(response);
       
     },(error) => {
       console.log(error);
-    }
-    )
+    })
   }
 
   draw(){
@@ -40,6 +41,19 @@ export class DrawService {
     }
     )
   }
+
+  getLastDraw(){
+    this.http
+    .get<string>(`${this.baseUrl}/draw/last`, {responseType: 'text' as 'json'})
+    .subscribe((response:string) => {
+      console.log("last draw: " + response);
+      this.lastDraw$.next(response);
+    },(error) => {
+      console.log(error);
+    }
+    )
+  }
+
 
   refresh(): void {
     window.location.reload();

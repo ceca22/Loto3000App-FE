@@ -18,6 +18,7 @@ import { CardComponent } from './dashboard/tickets/card/card.component';
 import { SharedDataService } from './shared/shared-data.service';
 import { CardTemplateComponent } from './dashboard/ticket/card-template/card-template.component';
 import { ImageInfoComponent } from './image-container/image-info/image-info.component';
+import { WinningComponent } from './dashboard/board/winning/winning.component';
 
 
 export function tokenGetter(){
@@ -37,6 +38,7 @@ export function tokenGetter(){
     CardComponent,
     CardTemplateComponent,
     ImageInfoComponent,
+    WinningComponent,
     
   ],
   imports: [

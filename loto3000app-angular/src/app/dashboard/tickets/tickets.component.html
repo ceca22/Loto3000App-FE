@@ -1,88 +1,109 @@
-
-<div *ngIf="currentUserInfo.role === '2'"    class="info-panel">
+<div class="tickets">
+    <div *ngIf="currentUserInfo.role === '2'"    class="info-panel">
     
-    <div class="sessionUser">
-        <div class="sessionDesign">
-            <p class="font-style ">SESSION INFORMATION</p>
-            <div class="status">
-                <div [ngClass]="sessionOpen === true ? 'green' : 'red'" class="span"></div>
-                <p class="font" *ngIf="sessionOpen === false " > {{statusSession}} <br/>at {{currentSession.end | date:'M/d/yy, h:mm a'}}</p>
-                <p class="font" *ngIf="sessionOpen === true " > {{statusSession}}</p>
-    
+        <div class="sessionUser">
+            <div class="sessionDesign">
+                <p class="font-style ">SESSION INFORMATION</p>
+                <p>SESSION ID: {{currentSession.id}}</p>
+                <div class="status">
+                    <div [ngClass]="sessionOpen === true ? 'green' : 'red'" class="span"></div>
+                    <p class="font" *ngIf="sessionOpen === false " > {{statusSession}} <br/>at {{currentSession.end | date:'M/d/yy, h:mm a'}}</p>
+                    <p class="font" *ngIf="sessionOpen === true " > {{statusSession}}</p>
+                    
+        
+                </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="ticketsUser" [ngClass]="{'show':activeClassTickets , 'hide' : !activeClassTickets}">
-        <button class="buttonDesign" id="buttonMyTickets"
-        type="click"  (click)="onClickTickets()">
-            <p class="font-style">MY TICKETS</p>
-            <p class="font13">Tickets you submitted for the on-going session!</p>
-            
-        </button>
-        <div class="panel">
-            <app-card [ticket]="element" *ngFor="let element of tickets">
-            </app-card>
+        <div class="rules" [ngClass]="{'show':activeClassRules , 'hide' : !activeClassRules}">
+            <button class="ticketDesign" id="buttonPrizes"
+            type="click" (click)="onClickRules()">
+                <p class="font-style ">LOTTERY3000 INSTRUCTIONS</p>
+                <p class="font">How to easily navigate through our app!</p>
+                
+            </button>
+            <div class="panel">
+                <ol>
+                    <li>You can submit tickets only when the session is open!</li>
+                    <li>Enter numbers between 1 and 37</li>
+                    <li>Check if you have won anything on our winners board</li>
+                </ol>
+            </div>
         </div>
-    </div>
-
-
-    <div class="prizesUser" [ngClass]="{'show':activeClassPrizes , 'hide' : !activeClassPrizes}">
-        <button class="buttonDesign" id="buttonPrizes"
-        type="click" (click)="onClickPrizes()">
-            <p class="font-style ">PRIZES</p>
-            <p class="font">Check the prizes available!</p>
-            
-        </button>
-        <div class="panel">
-            <p *ngFor="let element of prizesAvailable" class="prizeParagraphs">
-                {{element.prizeType}}
-            </p>
+    
+    
+        <div class="ticketsUser" [ngClass]="{'show':activeClassTickets , 'hide' : !activeClassTickets}">
+            <button class="ticketDesign" id="buttonMyTickets"
+            type="click"  (click)="onClickTickets()">
+                <p class="font-style">MY TICKETS</p>
+                <p class="font13">Tickets you submitted for the on-going session!</p>
+                
+            </button>
+            <div class="panel" *ngIf="tickets.length === 0">
+                <p>No tickets have been submitted for the session</p>
+            </div>
+            <div class="panel" *ngIf="tickets.length !== 0">
+                <app-card [ticket]="element" *ngFor="let element of tickets">
+                </app-card>
+            </div>
         </div>
+    
+    
+        <div class="prizesUser" [ngClass]="{'show':activeClassPrizes , 'hide' : !activeClassPrizes}">
+            <button class="ticketDesign" id="buttonPrizes"
+            type="click" (click)="onClickPrizes()">
+                <p class="font-style ">PRIZES</p>
+                <p class="font">Check the prizes available!</p>
+                
+            </button>
+            <div class="panel">
+                <p *ngFor="let element of prizesAvailable" class="prizeParagraphs">
+                    {{element.prizeType}}
+                </p>
+            </div>
+        </div>
+    
+    
     </div>
+    
+    <div class="adminPanel" *ngIf="currentUserInfo.role === '1'" >
+        <button  
+        class="session infoTemplate" 
+        type="submit"
+        (click)="startSession()"
+        [ngClass]="{'sessionOpen': statusSession === 'Currently Open'}">
+            <p>START SESSION</p>
+        </button>
+    
+    
+        <button   
+        class="session infoTemplate" 
+        type="submit"
+        (click)="endSession()"
+        [ngClass]="{'sessionClosed': statusSession === 'Currently Closed'}"
 
+        >
+            <p>END SESSION</p>
+        </button>
+    
+        <button class="draw infoTemplate" 
+        
+        type="submit"
+        (click)="makeDraw()"
+        >
+            <p>MAKE A DRAW</p>
+        </button>
 
-</div>
+        
 
-<div class="adminPanel" *ngIf="currentUserInfo.role === '1'" >
-    <button *ngIf="sessionOpen === false && drawIsMade === true" 
-    class="session infoTemplate" 
-    type="submit"
-    (click)="startSession()">
-        <p>START SESSION</p>
-    </button>
+        <button class="draw infoTemplate" 
+         
+        type="submit"
+        (click)="announceWinnersMethod()"
+        >
+            <p>ANNOUNCE WINNERS</p>
+        </button>
 
-
-    <button  *ngIf="sessionOpen === true" 
-    class="session infoTemplate" 
-    type="submit"
-    (click)="endSession()"
-    >
-        <p>END SESSION</p>
-    </button>
-
-    <button class="draw infoTemplate" 
-    *ngIf="sessionOpen === false && drawIsMade === true" disabled
-    type="submit"
-    >
-        <p>MAKE A DRAW</p>
-    </button>
-
-    <button class="draw infoTemplate" 
-    *ngIf="sessionOpen === true && drawIsMade === false" 
-    type="submit"
-    disabled
-    >
-        <p>MAKE A DRAW</p>
-    </button>
-
-    <button class="draw infoTemplate" 
-    *ngIf="sessionOpen === false && drawIsMade === false" 
-    type="submit"
-    (click)="makeDraw()"
-    >
-        <p>MAKE A DRAW</p>
-    </button>
-
+    
+    </div>
+    
 </div>
