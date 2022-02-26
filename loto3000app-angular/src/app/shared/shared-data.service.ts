@@ -31,8 +31,6 @@ export class SharedDataService {
         this.currentUser = payload;
         this.initSubscriptionsUserRole();
         this.currentUserSubject.next(this.currentUser);
-
-  
       })
     
   }
