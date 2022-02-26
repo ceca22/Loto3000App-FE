@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl:"http://localhost:7789/api"
+  apiBaseUrl:"https://loto-api.cecavasileva.com/api"
 };
