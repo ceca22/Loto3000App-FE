@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,7 +10,8 @@ import { environment } from 'src/environments/environment';
 export class UserService {
 
   constructor(private http:HttpClient, 
-    private router:Router ) { }
+    private router:Router,
+    private toastr:ToastrService ) { }
 
 
   readonly baseUrl = environment.apiBaseUrl;
@@ -22,9 +24,11 @@ export class UserService {
     .subscribe((response) => {
       console.log(response);
       this.router.navigate(['']);
+      this.toastr.success(response);
     },
     (error) => {
       console.log(error);
+      this.toastr.error(error.error);
     })
   }
 

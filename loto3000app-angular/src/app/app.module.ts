@@ -19,7 +19,8 @@ import { SharedDataService } from './shared/shared-data.service';
 import { CardTemplateComponent } from './dashboard/ticket/card-template/card-template.component';
 import { ImageInfoComponent } from './image-container/image-info/image-info.component';
 import { WinningComponent } from './dashboard/board/winning/winning.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 export function tokenGetter(){
   return localStorage.getItem("jwt");
@@ -47,6 +48,8 @@ export function tokenGetter(){
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     
 
     JwtModule.forRoot({

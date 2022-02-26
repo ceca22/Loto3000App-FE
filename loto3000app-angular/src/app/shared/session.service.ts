@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Session } from '../models/session';
@@ -15,7 +16,9 @@ export class SessionService {
   sessionSubject$ = new Subject<Session>();
 
 
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient, 
+    private router:Router,
+    private toastr:ToastrService) { }
 
   readonly baseUrl = environment.apiBaseUrl;
 
@@ -27,10 +30,10 @@ export class SessionService {
     this.http
     .get<Session>(`${this.baseUrl}/session/info`)
     .subscribe((response) => {
-      
       this.sessionSubject$.next(response);
       this.currentSession = response;
       console.log("currentSession" + this.currentSession);
+      // this.toastr.success(response);
     },(error) => {
       console.log(error);
     }

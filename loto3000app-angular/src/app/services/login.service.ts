@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class LoginService {
 
 
   constructor(private http:HttpClient, 
-    private router:Router) { }
+    private router:Router,
+    private toastr:ToastrService) { }
 
   readonly baseUrl = environment.apiBaseUrl;
 
@@ -21,11 +23,10 @@ export class LoginService {
       console.log('from login: '+ response);
       localStorage.setItem("jwt", response);
       this.router.navigate(['dashboard/info']);
-
     },
     (error) => {
-      // this.router.navigate(['login']);
       console.log(error);
+      this.toastr.error("Incorrect username or password");
     })
   }
 
