@@ -55,7 +55,7 @@ export function tokenGetter(){
     JwtModule.forRoot({
       config:{
         tokenGetter:tokenGetter,
-        allowedDomains:["localhost:7789", "https://loto-api.cecavasileva.com/api"],
+        allowedDomains:["localhost:7789", "loto-api.cecavasileva.com"],
         disallowedRoutes: []
       }
     })
