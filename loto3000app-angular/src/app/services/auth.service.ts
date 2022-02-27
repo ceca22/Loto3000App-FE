@@ -28,7 +28,7 @@ export class AuthService {
     const token = localStorage.getItem("jwt");
 
     if(token && !this.jwtHelper.isTokenExpired(token)){
-      console.log("authenticate " + token && !this.jwtHelper.isTokenExpired(token));
+      //console.log("authenticate " + token && !this.jwtHelper.isTokenExpired(token));
       return true;
     }
     return false;
@@ -39,7 +39,7 @@ export class AuthService {
     const token = localStorage.getItem("jwt");
     if(token){
       const decodeToken = this.jwtHelper.decodeToken(token);
-      console.log("1.GET USER ID: decode token" + typeof(decodeToken.nameid) + " " + decodeToken.nameid);
+      //console.log("1.GET USER ID: decode token" + typeof(decodeToken.nameid) + " " + decodeToken.nameid);
       return decodeToken.nameid.toString();
 
     }
@@ -51,7 +51,7 @@ export class AuthService {
     this.http
     .get<User>(`${this.baseUrl}/user/${id}`)
     .subscribe((result) => {
-      console.log("2:GET CURRENT USER: ROLE BEFORE ADDING THE ROLE" + result.role);
+      //console.log("2:GET CURRENT USER: ROLE BEFORE ADDING THE ROLE" + result.role);
       this.userSubject$.next(result);
 
     },
@@ -64,7 +64,7 @@ export class AuthService {
     this.http
     .get(`${this.baseUrl}/user/role`)
     .subscribe((result) => {
-      console.log("3: GET USER ROLE" + result);
+      //console.log("3: GET USER ROLE" + result);
       this.userRole$.next(result.toString());
 
     },

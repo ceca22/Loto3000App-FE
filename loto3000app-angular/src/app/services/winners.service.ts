@@ -1,6 +1,6 @@
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseWinner } from '../models/responseWinner';
@@ -18,15 +18,14 @@ export class WinnersService {
   readonly baseUrl = environment.apiBaseUrl;
 
   constructor(private http:HttpClient,
-    private router:Router) { }
+    private toastr:ToastrService) { }
 
 
   getWinners(){
     this.http
     .get<ResponseWinner[]>(`${this.baseUrl}/winning/board`)
     .subscribe(
-      (payload:any) => {
-        // console.log("winners" + JSON.stringify(payload));
+      (payload:ResponseWinner[]) => {
             this.winnersBoardSubject.next(payload);
           }, (error) => 
           { console.log(error);
@@ -41,8 +40,11 @@ export class WinnersService {
       (payload:any) => {;
             console.log("find winners: " + payload);
             this.findWinnersStatusSubject$.next(payload);
+            this.toastr.success("The winnings have been added to the Winners board!")
           }, (error) => 
-          { console.log(error);
+          { 
+            console.log(error);
+            this.toastr.error(error.error);
         }
     )
   }

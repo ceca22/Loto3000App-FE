@@ -9,7 +9,6 @@ import { User } from 'src/app/models/user';
 import { DrawService } from 'src/app/services/draw.service';
 import { PrizeService } from 'src/app/services/prize.service';
 import { Prize } from 'src/app/models/prize';
-import { WinnersService } from 'src/app/services/winners.service';
 
 @Component({
   selector: 'app-tickets',
@@ -25,46 +24,48 @@ export class TicketsComponent implements OnInit {
   sessionSubscription:Subscription;
 
   statusSession:string;
-  sessionOpen:boolean;
-  sessionClosed:boolean;
   statusSessionSubscription:Subscription;
 
   currentUserInfo:User;
-
-  drawIsMade:boolean;
-  drawSubscription:Subscription;
-
-  announceWinners:boolean = false;
-  announceWinnersSubscription:Subscription;
-
   prizesSubscription:Subscription;
   prizesAvailable:Prize[]=[];
-
   activeClassPrizes:boolean;
   activeClassTickets:boolean;
   activeClassRules:boolean;
+
+  drawIsMade:boolean;
+  drawSubscription:Subscription;
+  sessionOpen:boolean;
+  openSessionSubscription:Subscription;
+  sessionClose:boolean;
+  closeSessionSubscription:Subscription;
+  // announceWinners:boolean = true;
+  // announceWinnersSubscription:Subscription;
+
+
   
   constructor(private ticketService:TicketService, 
     private sessionService:SessionService, 
     private drawService:DrawService,
     private sharedData:SharedDataService,
-    private prizeService:PrizeService,
-    private winnerService:WinnersService) { }
+    private prizeService:PrizeService) { }
 
   ngOnInit(): void {
     this.sharedData.initSubscriptionsCurrentUser();
     this.sharedData.currentUserObservable.subscribe(message => this.currentUserInfo = message);
     this.sessionService.getCurrentSession();
-    this.drawService.drawIsMade();
     this.sessionService.sessionStatus();
     this.ticketService.getAllTickets();
     this.ticketService.getTickets();
     this.prizeService.getPrizes();
+    this.drawService.drawIsMade();
+
     this.initSubscriptions();
     this.initSubscriptionsSession();
     this.initSubscriptionsDraw();
     this.initSubscriptionPrize();
-    this.initSubscriptionAnnounceWinners();
+    this.initOpenSessionSubscription();
+    this.initCloseSessionSubscription();
   }
 
   initSubscriptions(){
@@ -81,7 +82,7 @@ export class TicketsComponent implements OnInit {
     this.sessionSubscription = this.sessionService.sessionSubject$
     .subscribe(
       (payload:Session) => {
-        console.log("session: " + payload);
+        console.log("session: " + JSON.stringify(payload));
         this.currentSession = payload;
       }
     )
@@ -97,12 +98,31 @@ export class TicketsComponent implements OnInit {
     })
   }
 
+  initOpenSessionSubscription(){
+    this.openSessionSubscription = this.sessionService.openSession$
+    .subscribe((payload:boolean) => {
+      this.sessionOpen = payload;
+      console.log(this.sessionOpen);
+    }
+    )
+  }
+
+  initCloseSessionSubscription(){
+    this.closeSessionSubscription = this.sessionService.closeSession$
+    .subscribe((payload:boolean) => {
+      this.sessionClose = payload
+      console.log(this.sessionClose);
+    }
+    
+    )
+  }
+
 
   initSubscriptionsDraw(){
     this.drawSubscription = this.drawService.drawStatus$
   .subscribe(
     (payload:boolean) => {
-      console.log("draw" + payload);
+      console.log("draw " + payload);
       this.drawIsMade = payload;
     }
   )
@@ -117,36 +137,21 @@ export class TicketsComponent implements OnInit {
     )
   }
 
-  initSubscriptionAnnounceWinners(){
-    this.announceWinnersSubscription = this.winnerService.findWinnersStatusSubject$
-    .subscribe((payload:boolean) => {
-      console.log("announce winners:" + payload);
-      this.announceWinners = payload;
-      
-    }
-    )
-  }
-
+  
 
   startSession(){
     this.sessionService.start();
   }
 
   endSession(){
-    this.sessionClosed = true;
-    this.sessionOpen = false;
     this.sessionService.end();
-    
   }
 
   makeDraw(){
     this.drawService.draw();
   }
 
-  announceWinnersMethod(){
-    this.winnerService.findWinners()
-  }
-
+  
   onClickTickets(){
     this.activeClassTickets = !this.activeClassTickets;
   }

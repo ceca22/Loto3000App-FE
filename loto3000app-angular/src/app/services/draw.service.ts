@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -13,7 +14,8 @@ export class DrawService {
   lastDraw$ = new Subject<string>();
 
   constructor(private http:HttpClient,
-    private router:Router) { }
+    private router:Router,
+    private toastr:ToastrService) { }
 
   readonly baseUrl = environment.apiBaseUrl;
 
@@ -23,6 +25,7 @@ export class DrawService {
     .subscribe((response) => {
       console.log("draw is made: " + response);
       this.drawStatus$.next(response);
+      
       
     },(error) => {
       console.log(error);
@@ -35,9 +38,11 @@ export class DrawService {
     .subscribe((response) => {
       console.log("make a draw: " + response);
       this.router.navigate(['dashboard/tickets']);
+      this.toastr.success("Made a draw successfully!")
       this.refresh();
     },(error) => {
       console.log(error);
+      this.toastr.error(error.error);
     }
     )
   }

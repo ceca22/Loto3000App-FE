@@ -14,6 +14,8 @@ export class SessionService {
   currentSession:Session;
   status$ = new Subject<boolean>();
   sessionSubject$ = new Subject<Session>();
+  openSession$ = new Subject<boolean>();
+  closeSession$ = new Subject<boolean>();
 
 
   constructor(private http:HttpClient, 
@@ -33,7 +35,7 @@ export class SessionService {
       this.sessionSubject$.next(response);
       this.currentSession = response;
       console.log("currentSession" + this.currentSession);
-      // this.toastr.success(response);
+      
     },(error) => {
       console.log(error);
     }
@@ -65,12 +67,13 @@ export class SessionService {
     this.http
     .post(`${this.baseUrl}/session/start`, {}, {responseType:'text'})
     .subscribe((response) => {
-      console.log("start session: " + response);
       this.router.navigate(['dashboard/tickets']);
-      // this.refresh();
-      
+      this.openSession$.next(true);
+      this.refresh();
     },(error) => {
       console.log(error);
+      this.toastr.error(error.error);
+
     }
     )
   }
@@ -80,12 +83,14 @@ export class SessionService {
     this.http
     .post(`${this.baseUrl}/session/end`, {}, {responseType:'text'})
     .subscribe((response) => {
-      console.log("end session: " + response);
+      console.log("end session: " + JSON.stringify(response));
       this.router.navigate(['dashboard/tickets']);
-      //this.refresh();
-      
+      this.closeSession$.next(true);
+      this.refresh();
     },(error) => {
       console.log(error);
+      this.toastr.error(error.error);
+
     }
     )
   }

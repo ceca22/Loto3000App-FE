@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Ticket } from '../models/ticket';
@@ -18,7 +19,8 @@ export class TicketService {
 
 
   constructor(private http:HttpClient,
-    private router:Router) {
+    private router:Router,
+    private toastr:ToastrService) {
 
     }
 
@@ -37,16 +39,19 @@ export class TicketService {
       six : form.six,
       seven : form.seven
     };
-    console.log("from service: user:" + data.userId + " session: " + data.sessionId);
+    //console.log("from service: user:" + data.userId + " session: " + data.sessionId);
 
     this.http.post<Ticket>(`${this.baseUrl}/ticket`, data, {responseType: 'text' as 'json'})
     .subscribe((response) => {
-      console.log("response" + response);
+      //console.log("response" + response);
       this.router.navigate(['dashboard/ticket/manually']);
       this.refresh();
+      this.toastr.success("Ticket successfully submited!");
     },
     (error) => {
       console.log(error);
+      this.toastr.error(error.error);
+
     })
     
   }
@@ -56,7 +61,7 @@ export class TicketService {
     .get<TicketCombination[]>(`${this.baseUrl}/ticket/myTickets`)
     .subscribe(
       (payload:any) => {
-        console.log("getting all the tickets" + payload.length)
+        //console.log("getting all the tickets" + payload.length)
             this.ticketsSubject$.next(payload);
             console.log(payload);
             
@@ -73,7 +78,7 @@ export class TicketService {
     .subscribe(
       (payload:any) => {
             this.ticketsForCurrentSessionSubject$.next(payload);
-            console.log(payload);
+            //console.log(payload);
             
           }, (error) => 
           { console.log(error);
@@ -87,7 +92,7 @@ export class TicketService {
     .subscribe(
       (payload:any) => {
             this.userEnrolledSubject$.next(payload);
-            console.log(payload);
+            //console.log(payload);
             
           }, (error) => 
           { console.log(error);

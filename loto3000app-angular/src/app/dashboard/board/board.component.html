@@ -48,8 +48,9 @@
             
             <div class="board-main">
                 <div class="list">
+                    <p *ngIf="draw !== ' ' && winners.length === 0 ">No winnings for this session!</p>
+                    <p *ngIf="draw === ' ' " class="waitingForADraw">Waiting for a draw!</p>
                     <app-winning [winning]="winner" *ngFor="let winner of winners"></app-winning>
-                    
                 </div>
             </div>
         </div>

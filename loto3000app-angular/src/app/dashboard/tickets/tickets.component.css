@@ -268,39 +268,24 @@
 
 }
 
-/* .infoTemplate:hover{
-    background-color: rgba(255, 145, 98, 0.836);
-
-} */
-
+.infoTemplate:disabled{
+    background-color: grey;
+}
 .infoTemplate:focus{
     outline: none;
 }
 
-/* .infoTemplate:disabled{
-    background-color: rgba(255, 145, 98, 0.514);
-
-} */
-
-/* .infoTemplate:disabled:hover{
-    background-color: rgba(255, 145, 98, 0.514);
-
-} */
-
-
-/* .draw:hover{
-    background-color: rgb(255, 145, 98);
-
-
-}
-
-.session:hover {
-    background-color: rgb(255, 145, 98);
-
-} */
-
 .sessionOpen, .sessionClosed{
     background-color:rgba(158, 98, 255, 0.26);
 }
+
+/* .adminPanel{
+    background: url("../../../../../images/green.png");
+    background-size: cover;
+    border-radius: 0px 0px 30px 30px;
+
+    
+    
+} */
 
 

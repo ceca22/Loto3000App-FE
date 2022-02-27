@@ -70,7 +70,8 @@
         class="session infoTemplate" 
         type="submit"
         (click)="startSession()"
-        [ngClass]="{'sessionOpen': statusSession === 'Currently Open'}">
+        *ngIf="drawIsMade === true"
+        >
             <p>START SESSION</p>
         </button>
     
@@ -79,30 +80,22 @@
         class="session infoTemplate" 
         type="submit"
         (click)="endSession()"
-        [ngClass]="{'sessionClosed': statusSession === 'Currently Closed'}"
-
+        *ngIf="sessionOpen === true"
         >
             <p>END SESSION</p>
+
         </button>
     
         <button class="draw infoTemplate" 
-        
         type="submit"
         (click)="makeDraw()"
+        *ngIf="drawIsMade === false && sessionOpen === false"
+
         >
             <p>MAKE A DRAW</p>
         </button>
 
         
-
-        <button class="draw infoTemplate" 
-         
-        type="submit"
-        (click)="announceWinnersMethod()"
-        >
-            <p>ANNOUNCE WINNERS</p>
-        </button>
-
     
     </div>
     
