@@ -73,6 +73,7 @@ export class TicketComponent implements OnInit {
       data.sessionId = sessionId;
     }
     this.ticketService.submitTicket(data);
+    form.reset();
   }
 
 

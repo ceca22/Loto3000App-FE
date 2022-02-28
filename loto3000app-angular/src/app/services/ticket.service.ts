@@ -43,9 +43,6 @@ export class TicketService {
 
     this.http.post<Ticket>(`${this.baseUrl}/ticket`, data, {responseType: 'text' as 'json'})
     .subscribe((response) => {
-      //console.log("response" + response);
-      this.router.navigate(['dashboard/ticket/manually']);
-      this.refresh();
       this.toastr.success("Ticket successfully submited!");
     },
     (error) => {
