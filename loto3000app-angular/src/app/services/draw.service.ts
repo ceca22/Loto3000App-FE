@@ -38,7 +38,6 @@ export class DrawService {
     .subscribe((response) => {
       console.log("make a draw: " + response);
       this.router.navigate(['dashboard/tickets']);
-      // this.toastr.success("Made a draw successfully!")
       this.refresh();
     },(error) => {
       console.log(error);

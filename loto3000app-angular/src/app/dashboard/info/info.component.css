@@ -30,7 +30,9 @@
 
 }
 
-
+.greeting p{
+    margin-top:10px;
+}
 
 .info {
     width: 60%;
